@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {getExam, editExam} from '../../services/examService';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {Link} from 'react-router-dom';
 const EditExam = () => {
     const {id} = useParams();
     const navigate = useNavigate();
@@ -42,10 +44,28 @@ const EditExam = () => {
                 exam_name,
                 time_limit
             });
-            alert("Sửa thành công");
-            navigate('/')
+            toast.success('edit success', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
+            setTimeout(() => {
+                navigate('/')
+            }, 2000);
         } catch (error) {
-            alert(error);
+            toast.error('edit failed', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
         }
     };
 
@@ -78,16 +98,24 @@ const EditExam = () => {
                         />
                     </div>
                     <div className="text-red-500 text-center w-full font-bold text-xl">{error}</div>
-                    <div className="flex justify-center mt-5">
+                    <div className="flex justify-between mt-5">
+                    <Link to="/">
+                    <button class="flex justify-center items-center bg-red-500 text-white w-44  px-4 py-3 rounded-md focus:outline-none" >
+                                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg> Cancel
+                            </button></Link>
                         <button
                             onClick={() => editNewExam()}
                             className="text-white bg-blue-700 w-44 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none p-2 ml-3"
                         >
                             Edit
                         </button>
+                      
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

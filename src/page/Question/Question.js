@@ -1,7 +1,8 @@
     import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {getAllQuestions, deleteQuestion} from "../../services/questionService";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Question(props) {
     const {id} = useParams();
     const [showQuestion, setShowQuestion] = useState([]);
@@ -21,25 +22,55 @@ function Question(props) {
 
 
     const deleteNote = async (id) => {
-        console.log(id)
         try {
-            await deleteQuestion(id);
-            getQuestions();
-            alert("Xoá thành công");
+        const response =  await deleteQuestion(id);
+        if(response.data ===true ){
+            toast.success('delete success!', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              });
+          }else{
+            toast.warn('failed delete question already done', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              });
+          }            
         } catch (error) {
-            console.log();
+            toast.error('delete failed',{
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
         }
+        getQuestions();
     };
 
     return (
         <div className="flex items-center justify-center w-full font-sans h-100 bg-teal-lightest">
             <div className="w-full p-6 m-4 bg-white rounded shadow lg:w-3/4 lg:max-w-lg">
                 <div className="flex items-center justify-between mb-4">
+                <Link to="/" className="font-bold text-md bg-red-600 p-2 text-white rounded-lg"><button>Back to home</button></Link>
+
                     <h1 className="font-bold text-grey-darkest">Question list</h1>
+                    
                     <Link to={`/add-question/${id}`}>
                         <button
                             className="text-white bg-blue-700 w-28 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none p-2 ml-3">
-                            Add
+                            Add Question
                         </button>
                     </Link>
                 </div>
@@ -86,6 +117,7 @@ function Question(props) {
                     })}
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 }

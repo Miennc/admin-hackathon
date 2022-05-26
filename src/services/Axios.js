@@ -36,7 +36,7 @@ function getInstance() {
     }, error => {
         if (error.response.status === 401) {
             localStorage.removeItem('token');
-            alert('Bạn phải đăng nhập để truy cập vào api này');
+          //  alert('Bạn phải đăng nhập để truy cập vào api này');
             window.location.href = '/login';
         }
         return Promise.reject(error);

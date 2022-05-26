@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {editQuestion, getQuestion} from "../../services/questionService";
-
+import {Link} from "react-router-dom";
 const Edit = () => {
     const {idExam, idQuestion} = useParams();
     const formData = new FormData();
@@ -166,19 +166,25 @@ const Edit = () => {
                             </div>
                         ))}
                         <button
-                            className="h-10 mb-2 text-white bg-indigo-600 rounded-lg w-36"
+                           className="mb-2 hover:text-red-500"
                             onClick={() =>
                                 setAnswers([...answers, {answer_content: "", isright: false}])
                             }
                         >
-                            Next question
+                            Next answers
                         </button>
                     </div>
                     <div className="text-red-500 text-xl font-bold">{error}</div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-between">
+                    <Link to="/">
+                    <button class="flex justify-center items-center bg-red-500 text-white w-44  px-4 py-3 rounded-md focus:outline-none" >
+                                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg> Cancel
+                            </button></Link>
                         <button
                             onClick={_editQuestion}
-                            className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center md:w-60 w-44 mr-2 mb-2"
+                            className="text-white bg-blue-700 w-44 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm focus:outline-none p-2 ml-3"
                         >
                             Submit
                         </button>
