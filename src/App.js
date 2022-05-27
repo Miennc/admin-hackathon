@@ -10,8 +10,7 @@ import Login from './page/Auth/Login';
 // import Footer from './components/Footer';
 function App() {
     return (
-        <div className="App">
-            <div className="container mx-auto">
+        <div className="App ">
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Home/>}/>
@@ -24,7 +23,6 @@ function App() {
                     </Routes>
                 </BrowserRouter>
                 {/* <Footer></Footer> */}
-            </div>
 
         </div>
     );
